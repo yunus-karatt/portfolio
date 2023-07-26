@@ -28,7 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <!-- =======================================================
   * Template Name: iPortfolio
   * Updated: May 30 2023 with Bootstrap v5.3.0
@@ -576,7 +576,7 @@
           </div>
 
           <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form method="post" role="form" class="php-email-form">
+            <form id="submit-form" class="php-email-form">
               <div class="row">
                 <div class="form-group col-md-6">
                   <label for="name">Your Name</label>
@@ -641,30 +641,55 @@
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
   <script src="assets/vendor/typed.js/typed.umd.js"></script>
   <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-    var btn = document.getElementById('btn');
-    btn.addEventListener('click', function (e) {
-      e.preventDefault()
-      var name = document.getElementById('name').value;
-      var email = document.getElementById('email').value;
-      var subject = document.getElementById('subject').value;
-      var message = document.getElementById('message').value;
-      var body = 'name:  '+name + '<br/> email: '  +email + '<br/> subject:  '+subject + '<br/> message:  '+message;
-      Email.send({
-    SecureToken : "c60d436c-d560-4e95-8866-8983b7e056ed",
-    To : 'yyas404@outlook.com',
-    From : "yyas404@gmail.com",
-    Subject : "contact message",
-    Body : body
-}).then(
-  message => alert(message)
-);
+//     var btn = document.getElementById('btn');
+//     btn.addEventListener('click', function (e) {
+//       e.preventDefault()
+//       var name = document.getElementById('name').value;
+//       var email = document.getElementById('email').value;
+//       var subject = document.getElementById('subject').value;
+//       var message = document.getElementById('message').value;
+//       var body = 'name:  '+name + '<br/> email: '  +email + '<br/> subject:  '+subject + '<br/> message:  '+message;
+//       Email.send({
+//     SecureToken : "c60d436c-d560-4e95-8866-8983b7e056ed",
+//     To : 'yyas404@outlook.com',
+//     From : "yyas404@gmail.com",
+//     Subject : "contact message",
+//     Body : body
+// }).then(
+//   message => alert(message)
+// );
 
 
-    })
+//     })
+
+$("#submit-form").submit((e)=>{
+            e.preventDefault()
+            $.ajax({
+                url:"https://script.google.com/macros/s/AKfycbz3fwSr5mupnaHqQQlRgybhyngvlzAsvJpYmSFpff3xynp0ZMG-v06wc6z5b0qSuiuu/exec",
+                data:$("#submit-form").serialize(),
+                method:"post",
+                success:function (response){
+                    alert("Form submitted successfully")
+                    window.location.reload()
+                    //window.location.href="https://google.com"
+                },
+                error:function (err){
+                    alert("Something Error")
+    
+                }
+            })
+        })
+    const form = document.querySelector("form")
+form.addEventListener('click', e=>{
+  if(!form.checkValidity()){
+    // e.preventDefault()
+  }
+  form.classList.add('was-validated')
+})
   </script>
 </body>
 
